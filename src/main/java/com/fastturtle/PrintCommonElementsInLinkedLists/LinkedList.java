@@ -176,7 +176,7 @@ public class LinkedList<T> implements LinkedListService {
         return result + "]";
     }
     
-    public String toString(ListNode head) {
+    public static String toString(ListNode head) {
         String result = "[";
         if(head == null) {
             return result + "]";

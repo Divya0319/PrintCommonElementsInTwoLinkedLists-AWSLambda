@@ -1,6 +1,6 @@
 package com.fastturtle.PrintCommonElementsInLinkedLists;
 
-import java.util.ArrayList;
+import java.io.IOException;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -44,8 +44,24 @@ public class PrintCommonElementsBetweenTwoSortedLinkedLists implements RequestHa
 	
 	@Override
 	public String handleRequest(String input, Context context) {
-		
-		return "";
+		try {
+			// Deserialize JSON input using LinkedListDeserializer
+			LinkedListDeserializer.RequestClass request = LinkedListDeserializer.fromJson(input);
+			
+			// Access LinkedList fields and process them as needed
+			LinkedList<Integer> linkedList1 = request.getLinkedList1();
+			LinkedList<Integer> linkedList2 = request.getLinkedList2();
+			
+			ListNode commonList = printCommonElements(linkedList1.getHead(), linkedList2.getHead());
+			
+			// Return result
+			return LinkedList.toString(commonList);
+			
+		} catch (IOException e) {
+			
+			// Handle deserialization error
+			return "Error: " + e.getMessage();
+		}
 		
 	}
 

@@ -25,9 +25,9 @@
     </dependency>
     
     <dependency>
-    	<groupId>com.fasterxml.jackson.core</groupId>
-    	<artifactId>jackson-databind</artifactId>
-    	<version>2.12.4</version> <!-- or the version compatible with your project -->
+    	<groupId>com.google.code.gson</groupId>
+    	<artifactId>gson</artifactId>
+    	<version>2.8.8</version> <!-- Or the latest version -->
 	</dependency>
    
   </dependencies>
@@ -38,11 +38,22 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.2.4</version>
-				<configuration>
-					<createDependencyReducedPom>false</createDependencyReducedPom>
-					<shadedArtifactAttached>true</shadedArtifactAttached>
-					<shadedClassifierName>aws</shadedClassifierName>
-				</configuration>
+				<executions>
+                	<execution>
+                    	<phase>package</phase>
+                    	<goals>
+                        	<goal>shade</goal>
+                    	</goals>
+                    	<configuration>
+                        	<createDependencyReducedPom>false</createDependencyReducedPom>
+                        	<transformers>
+                            	<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                	<mainClass>your.main.class.MainClass</mainClass>
+                            	</transformer>
+                        	</transformers>
+                    	</configuration>
+                	</execution>
+           		 </executions>
 			</plugin>
 		</plugins>
   </build>

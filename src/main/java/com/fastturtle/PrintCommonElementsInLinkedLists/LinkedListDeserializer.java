@@ -2,10 +2,18 @@ package com.fastturtle.PrintCommonElementsInLinkedLists;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class LinkedListDeserializer {
+	
+	private static final Gson gson;
+	
+	static {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LinkedList.class, new CustomLinkedListDeserializer());
+        gson = gsonBuilder.create();
+    }
 	
 	public static class RequestClass {
 		private LinkedList<Integer> linkedList1;
@@ -30,29 +38,8 @@ public class LinkedListDeserializer {
 	}
 	
 	// Factory method for deserialization
-    public static RequestClass fromJson(String json) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode rootNode = mapper.readTree(json);
-
-        // Deserialize linkedList1
-        JsonNode linkedList1Node = rootNode.get("linkedList1");
-        LinkedList<Integer> linkedList1 = new LinkedList<>();
-        for (JsonNode valueNode : linkedList1Node) {
-            linkedList1.insert(valueNode.asInt());
-        }
-
-        // Deserialize linkedList2
-        JsonNode linkedList2Node = rootNode.get("linkedList2");
-        LinkedList<Integer> linkedList2 = new LinkedList<>();
-        for (JsonNode valueNode : linkedList2Node) {
-            linkedList2.insert(valueNode.asInt());
-        }
-
-        // Construct RequestClass instance
-        RequestClass request = new RequestClass();
-        request.setLinkedList1(linkedList1);
-        request.setLinkedList2(linkedList2);
-        return request;
+    public static RequestClass fromJson(String json) {
+        return gson.fromJson(json, RequestClass.class);
     }
     
     public static void main(String[] args) throws IOException {

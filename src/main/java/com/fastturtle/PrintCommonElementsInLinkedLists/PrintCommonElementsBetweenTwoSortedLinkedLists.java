@@ -44,7 +44,7 @@ public class PrintCommonElementsBetweenTwoSortedLinkedLists implements RequestHa
 	public String handleRequest(String input, Context context) {
 		
 			// Deserialize JSON input using LinkedListDeserializer
-			LinkedListDeserializer.RequestClass request = LinkedListDeserializer.fromJson(input);
+			RequestClass request = LinkedListDeserializer.fromJson(input);
 			
 			// Access LinkedList fields and process them as needed
 			LinkedList<Integer> linkedList1 = request.getLinkedList1();
@@ -54,7 +54,7 @@ public class PrintCommonElementsBetweenTwoSortedLinkedLists implements RequestHa
 			
 			// Return result
 			return LinkedList.toString(commonList);
-		
+					
 	}
 
 }

@@ -177,18 +177,20 @@ public class LinkedList<T> implements LinkedListService {
     }
     
     public static String toString(ListNode head) {
-        String result = "[";
-        if(head == null) {
-            return result + "]";
-        }
-        result = result + head.getData();
-        ListNode temp = head.getNext();
-        while(temp != null) {
-           result = result + ", " + temp.getData();
-           temp = temp.getNext();
+        StringBuilder result = new StringBuilder("[");
+        
+        if(head != null) {
+        	result.append(head.getData());
+        	ListNode temp = head.getNext();
+        	while(temp != null) {
+        		result.append(", ").append(temp.getData());
+        		temp = temp.getNext();
+        	}
         }
         
-        return result + "]";
+        result.append("]");
+        
+        return result.toString().replaceAll("\\s+", "");
     }
     
     public static void main(String[] args) {

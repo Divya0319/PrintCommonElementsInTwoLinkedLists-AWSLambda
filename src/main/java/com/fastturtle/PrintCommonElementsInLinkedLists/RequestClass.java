@@ -20,4 +20,10 @@ public class RequestClass {
     public void setLinkedList2(LinkedList<Integer> linkedList2) {
         this.linkedList2 = linkedList2;
     }
+
+	@Override
+	public String toString() {
+		return "RequestClass [linkedList1=" + linkedList1 + ", linkedList2=" + linkedList2 + "]";
+	}
+    
 }

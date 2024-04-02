@@ -1,9 +1,13 @@
 package com.fastturtle.PrintCommonElementsInLinkedLists;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 public class LinkedListDeserializer {
 	
@@ -17,17 +21,34 @@ public class LinkedListDeserializer {
 
 	
 	// Factory method for deserialization
-    public static RequestClass fromJson(String json) {
+    public static RequestClass fromJson(InputStream json) {
+        return gson.fromJson(new InputStreamReader(json), RequestClass.class);
+    }
+    
+    private static RequestClass fromJson(JsonObject json) {
         return gson.fromJson(json, RequestClass.class);
     }
     
     public static void main(String[] args) throws IOException {
         // Example JSON input
-    	String json = "{\"linkedList1\": [1, 3, 8], \"linkedList2\": [3, 6, 8, 12]}";
+//    	String json = "{\"linkedList1\": [1, 3, 8], \"linkedList2\": [3, 6, 8, 12]}";
+    	JsonObject jObj = new JsonObject();
+    	JsonArray jArr1 = new JsonArray();
+    	JsonArray jArr2 = new JsonArray();
+    	jArr1.add(1);
+    	jArr1.add(3);
+    	jArr1.add(8);
+    	jArr2.add(3);
+    	jArr2.add(6);
+    	jArr2.add(8);
+    	jArr2.add(12);
+    	jObj.add("linkedList1", jArr1);
+    	jObj.add("linkedList2", jArr2);
+    	
     	
 
         // Deserialize JSON input using factory method
-        RequestClass request = fromJson(json);
+        RequestClass request = fromJson(jObj);
 
         // Print deserialized object
         System.out.println("LinkedList1: " + request.getLinkedList1());

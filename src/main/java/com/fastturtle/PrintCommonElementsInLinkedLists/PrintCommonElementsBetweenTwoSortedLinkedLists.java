@@ -57,6 +57,8 @@ public class PrintCommonElementsBetweenTwoSortedLinkedLists implements RequestSt
 			
 			String result = LinkedList.toString(commonList);
 			
+			System.out.println("Common LinkedList: " + result);
+			
 			// Return result
 			output.write(result.getBytes());
 					
